@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         <Link href="/" passHref>
           <Image
             src="/logo.png"
-            alt="MyLogo"
+            alt="ChatBot PDF Logo"
             width={75} 
             height={75}
             className="cursor-pointer"
@@ -21,14 +21,14 @@ const Header: React.FC = () => {
         </Link>
       </div>
 
-      {/* Menu Items */}
+    {/* Menu Items 
       <nav className="flex flex-grow justify-end space-x-4 mr-3">
         <Link href="/about">About</Link>
         <Link href="/chatbotblog">Blog</Link>
         <Link href="/contact">Contact</Link>
       </nav>
-
-      {/* CTA Button */}
+    */}
+      {/* CTA Button 
       <div className="flex-shrink-0">
         <Link href="/sign-in">
           <Button>
@@ -37,6 +37,7 @@ const Header: React.FC = () => {
           </Button>
         </Link>
       </div>
+      */}
     </header>
   );
 };
