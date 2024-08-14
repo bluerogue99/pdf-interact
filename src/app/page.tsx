@@ -10,6 +10,9 @@ import { db } from '@/lib/db';
 import { chats } from '@/lib/db/schema';
 import { eq } from "drizzle-orm";
 import './page.css';
+import Header from '../components/Header';
+
+
 
 export default async function Home() {
   const { userId } = await auth();
@@ -23,7 +26,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="relative w-screen min-h-screen bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 overflow-hidden">
+    <div className="relative w-screen min-h-screen bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 overflow-hidden z-0">
+      <Header/>
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-30 z-0"></div>
 
@@ -35,8 +39,6 @@ export default async function Home() {
           <div className="absolute w-32 h-32 bg-blue-600 rounded-full opacity-40 animate-bubble2"></div>
           <div className="absolute w-16 h-16 bg-teal-600 rounded-full opacity-40 animate-bubble3"></div>
           <div className="absolute w-20 h-20 bg-indigo-600 rounded-full opacity-40 animate-bubble4"></div>
-
-          {/* Additional Bubbles */}
           <div className="absolute w-28 h-28 bg-purple-600 rounded-full opacity-40 animate-bubble5"></div>
           <div className="absolute w-36 h-36 bg-blue-600 rounded-full opacity-40 animate-bubble6"></div>
           <div className="absolute w-18 h-18 bg-teal-600 rounded-full opacity-40 animate-bubble7"></div>
@@ -49,7 +51,7 @@ export default async function Home() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
-            <h1 className="mr-3 text-5xl font-semibold text-white">AI Powered PDF Interaction</h1>
+            <h1 className="mb-2 text-5xl font-semibold text-white">Start chatting with AI about your PDF content</h1>
             <UserButton afterSignOutUrl="/" />
           </div>
 
@@ -60,12 +62,17 @@ export default async function Home() {
               </Link>
             }
             <div className="ml-3">
-              <SubscriptionButton isPro={isPro} />
+            {isAuth && (
+              <div className="ml-3">
+                <SubscriptionButton isPro={isPro} />
+              </div>
+            )}
+
             </div>
           </div>
 
-          <p className="max-w-xl mt-2 text-lg text-slate-300">
-            Transform how you interact with PDFs. Get instant answers, summaries, and insights powered by AI.
+          <p className="mt-2 mb-2 text-lg text-slate-300">
+            100% Free. Get instant answers, summaries, and insights powered by AI.
           </p>
           <div className="w-full mt-4">
             {isAuth ? (

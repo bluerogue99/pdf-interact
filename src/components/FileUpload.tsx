@@ -21,7 +21,11 @@ const FileUpload = () => {
   });
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'application/pdf': ['.pdf'] },
+    accept: { 
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+     },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
@@ -29,6 +33,19 @@ const FileUpload = () => {
         toast.error("File too large");
         return;
       }
+
+      const isPDF = file.type === 'application/pdf' || file.name.endsWith('.pdf');
+
+      if (!isPDF) {
+        const isWordDocument = file.name.endsWith('.doc') || file.name.endsWith('.docx');
+        if (isWordDocument) {
+          toast.error("Please upload a PDF file to start chatting.");
+        } else {
+          toast.error("Invalid file type. Please upload a PDF.");
+        }
+        return;
+      }
+
 
       try {
         setUploading(true);

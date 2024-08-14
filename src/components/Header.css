@@ -1,0 +1,14 @@
+
+header {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+  }
+  
+  header a {
+    color: inherit; /* Inherit color from header */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  header a:hover {
+    text-decoration: underline; /* Underline links on hover */
+  }
