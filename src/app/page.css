@@ -1,0 +1,157 @@
+@keyframes bubble1 {
+    0% {
+      transform: translateX(-100%) translateY(100%);
+    }
+    50% {
+      transform: translateX(50%) translateY(-50%);
+    }
+    100% {
+      transform: translateX(100%) translateY(-100%);
+    }
+  }
+  @keyframes bubble2 {
+    0% {
+      transform: translateX(100%) translateY(-100%);
+    }
+    50% {
+      transform: translateX(-50%) translateY(50%);
+    }
+    100% {
+      transform: translateX(-100%) translateY(100%);
+    }
+  }
+  @keyframes bubble3 {
+    0% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+    50% {
+      transform: translateX(50%) translateY(50%);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%);
+    }
+  }
+  @keyframes bubble4 {
+    0% {
+      transform: translateX(100%) translateY(100%);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-50%);
+    }
+    100% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+  }
+  
+  @keyframes bubble5 {
+    0% {
+      transform: translateX(-100%) translateY(0%);
+    }
+    50% {
+      transform: translateX(0%) translateY(-50%);
+    }
+    100% {
+      transform: translateX(100%) translateY(0%);
+    }
+  }
+  @keyframes bubble6 {
+    0% {
+      transform: translateX(0%) translateY(-100%);
+    }
+    50% {
+      transform: translateX(-50%) translateY(0%);
+    }
+    100% {
+      transform: translateX(0%) translateY(100%);
+    }
+  }
+  @keyframes bubble7 {
+    0% {
+      transform: translateX(100%) translateY(0%);
+    }
+    50% {
+      transform: translateX(0%) translateY(50%);
+    }
+    100% {
+      transform: translateX(-100%) translateY(0%);
+    }
+  }
+  @keyframes bubble8 {
+    0% {
+      transform: translateX(0%) translateY(100%);
+    }
+    50% {
+      transform: translateX(50%) translateY(0%);
+    }
+    100% {
+      transform: translateX(0%) translateY(-100%);
+    }
+  }
+  @keyframes bubble9 {
+    0% {
+      transform: translateX(-50%) translateY(-50%);
+    }
+    50% {
+      transform: translateX(50%) translateY(50%);
+    }
+    100% {
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+  
+  .animate-bubble1 {
+    animation: bubble1 25s linear infinite;
+    top: 20%;
+    left: 10%;
+  }
+  .animate-bubble2 {
+    animation: bubble2 30s linear infinite;
+    top: 60%;
+    right: 15%;
+  }
+  .animate-bubble3 {
+    animation: bubble3 20s linear infinite;
+    bottom: 20%;
+    left: 25%;
+  }
+  .animate-bubble4 {
+    animation: bubble4 35s linear infinite;
+    bottom: 40%;
+    right: 20%;
+  }
+  
+  .animate-bubble5 {
+    animation: bubble5 40s linear infinite;
+    top: 10%;
+    right: 25%;
+  }
+  .animate-bubble6 {
+    animation: bubble6 45s linear infinite;
+    bottom: 30%;
+    left: 20%;
+  }
+  .animate-bubble7 {
+    animation: bubble7 50s linear infinite;
+    top: 50%;
+    right: 10%;
+  }
+  .animate-bubble8 {
+    animation: bubble8 55s linear infinite;
+    bottom: 10%;
+    left: 40%;
+  }
+  .animate-bubble9 {
+    animation: bubble9 60s linear infinite;
+    top: 40%;
+    left: 60%;
+  }
+  
+
+  
+
+
+
+
+
+
+  

@@ -1,113 +1,86 @@
-import Image from "next/image";
+import { auth } from '@clerk/nextjs/server';
+import { Button } from "../components/ui/button";
+import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { LogIn } from "lucide-react";
+import FileUpload from '../components/FileUpload';
+import SubscriptionButton from '@/components/SubscriptionButton';
+import { checkSubscription } from "@/lib/subscription";
+import { db } from '@/lib/db';
+import { chats } from '@/lib/db/schema';
+import { eq } from "drizzle-orm";
+import './page.css';
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+  const isAuth = !!userId;
+  const isPro = await checkSubscription();
+
+  let firstChat = null;
+  if (userId) {
+    const chatResults = await db.select().from(chats).where(eq(chats.userId, userId));
+    firstChat = chatResults[0] || null;
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="relative w-screen min-h-screen bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 overflow-hidden">
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-30 z-0"></div>
+
+      {/* Background Animation */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative w-full h-full">
+          {/* Existing Bubbles */}
+          <div className="absolute w-24 h-24 bg-purple-600 rounded-full opacity-40 animate-bubble1"></div>
+          <div className="absolute w-32 h-32 bg-blue-600 rounded-full opacity-40 animate-bubble2"></div>
+          <div className="absolute w-16 h-16 bg-teal-600 rounded-full opacity-40 animate-bubble3"></div>
+          <div className="absolute w-20 h-20 bg-indigo-600 rounded-full opacity-40 animate-bubble4"></div>
+
+          {/* Additional Bubbles */}
+          <div className="absolute w-28 h-28 bg-purple-600 rounded-full opacity-40 animate-bubble5"></div>
+          <div className="absolute w-36 h-36 bg-blue-600 rounded-full opacity-40 animate-bubble6"></div>
+          <div className="absolute w-18 h-18 bg-teal-600 rounded-full opacity-40 animate-bubble7"></div>
+          <div className="absolute w-22 h-22 bg-indigo-600 rounded-full opacity-40 animate-bubble8"></div>
+          <div className="absolute w-26 h-26 bg-purple-600 rounded-full opacity-40 animate-bubble9"></div>
         </div>
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      {/* Content */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="flex flex-col items-center text-center">
+          <div className="flex items-center">
+            <h1 className="mr-3 text-5xl font-semibold text-white">AI Powered PDF Interaction</h1>
+            <UserButton afterSignOutUrl="/" />
+          </div>
+
+          <div className="flex mt-2 mb-2">
+            {isAuth && firstChat && 
+              <Link href={`/chat/${firstChat.id}`}>
+                <Button>Go to Chats</Button>
+              </Link>
+            }
+            <div className="ml-3">
+              <SubscriptionButton isPro={isPro} />
+            </div>
+          </div>
+
+          <p className="max-w-xl mt-2 text-lg text-slate-300">
+            Transform how you interact with PDFs. Get instant answers, summaries, and insights powered by AI.
+          </p>
+          <div className="w-full mt-4">
+            {isAuth ? (
+              <FileUpload />
+            ) : (
+              <Link href="/sign-in">
+                <Button>
+                  Login to get Started!
+                  <LogIn className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }

@@ -1,0 +1,4 @@
+root: C:\Users\J¢zsef\Desktop\chatpdf\chatpdf 
+path: C:\Program Files\nodejs 
+arch: 64 
+proxy: none
