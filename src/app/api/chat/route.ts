@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         const fileKey = _chats[0].fileKey;
 
         const lastMessage = messages[messages.length - 1];
-        const textContent = lastMessage?.content || ""; // Extract content if lastMessage is an object
+        const textContent = lastMessage?.content || "AI assistant asks the user to ask more questions because information is still being extracted from the PDF while the conversation goes on.";
 
         // onStart: Save the user message into the database
         await db.insert(_messages).values({
