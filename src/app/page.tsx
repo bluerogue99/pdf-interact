@@ -11,6 +11,7 @@ import { chats } from '@/lib/db/schema';
 import { eq } from "drizzle-orm";
 import './page.css';
 import Header from '../components/Header';
+import Head from 'next/head';
 
 
 
@@ -26,6 +27,12 @@ export default async function Home() {
   }
 
   return (
+    <>
+    <Head>
+      <title>Your Page Title</title>
+      <meta name="description" content="Your page description" />
+      <script defer data-domain="chatbotpdf.com" src="https://plausible.io/js/script.js"></script>
+    </Head>
     <div className="relative w-screen min-h-screen bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 overflow-hidden z-0">
       <Header/>
       {/* Dark Overlay */}
@@ -89,5 +96,6 @@ export default async function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
