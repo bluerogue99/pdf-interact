@@ -12,6 +12,8 @@ import { eq } from "drizzle-orm";
 import './page.css';
 import Header from '../components/Header';
 import Head from 'next/head';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
 
@@ -96,6 +98,8 @@ export default async function Home() {
         </div>
       </div>
     </div>
+    <Analytics />
+    <SpeedInsights />
     </>
   );
 }
